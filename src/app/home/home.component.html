@@ -1,0 +1,63 @@
+<main class="d-flex align-items-center justify-content-center">
+  <div class="card shadow " style="width: 600px">
+    <div class="card-body">
+
+      <div class="d-flex align-item-center justify-content-between mb-3">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Ajouter une tache
+        </button>
+        <form [formGroup]="searcheForm">
+          <div class="input-group  ">
+            <input type="text" formControlName="id" class="form-control" placeholder="Recherche a partir de l'id" aria-label="Username" required>
+            <div>
+              <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#examplFiltereModal"  type="submit" (click)="showDatabyId()"><i class="bi bi-search"></i></button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+
+      <!--    Listes des taches-->
+      <div *ngFor="let items of list_task let index;">
+        <div class="d-flex align-item-center justify-content-between p-3 shadow">
+          <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            {{items.title}}
+          </a>
+
+          <span  >
+            <b>Tache id</b>: {{items.id}}
+          </span>
+
+          <div class="d-flex align-item-center gap-3">
+            <button class="btn btn-outline-secondary" (click)="updateData(items.id)" data-bs-toggle="modal" data-bs-target="#exampleUpdateModal"  >
+              <i class="bi bi-arrow-counterclockwise"></i>
+            </button>
+            <button class="btn btn-outline-danger" (click)="deleteData(items.id)" >
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            {{items.description}}
+          </div>
+        </div>
+      </div>
+      <!--    Fin istes des taches-->
+    </div>
+  </div>
+</main>
+
+<div class="modal fade" id="exampleUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <app-update-task ></app-update-task>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <app-add-task ></app-add-task>
+</div>
+
+<div class="modal fade" id="examplFiltereModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <app-show-filter [filterTitre]="filterTitre" [filterdesc]="filterdesc"></app-show-filter>
+</div>
+
+
